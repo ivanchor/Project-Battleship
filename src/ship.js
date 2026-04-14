@@ -1,24 +1,24 @@
 class ship{
-    #hitCounter = 0
-    #sunk = false
-    #length
+    hitCounter = 0
+    sunk = false
+    length
 
     constructor(length){
-        this.#length = length
+        this.length = length
     }
 
     hit(){
-        this.#hitCounter += 1
+        this.hitCounter += 1
     }
 
     isSunk(){
-        if(this.#hitCounter == this.#length) this.#sunk = true
-        return this.#sunk
+        if(this.hitCounter == this.length) this.sunk = true
+        return this.sunk
     }
 
     // Get functions
     getHitCounter(){
-        return this.#hitCounter
+        return this.hitCounter
     }
 
 }
