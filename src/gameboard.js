@@ -1,70 +1,90 @@
 import { ship } from "./ship";
-
+import { tile } from "./tile";
 
 class gameboard{
-    #ships = []
-    #missedShots = []
-    #board = Array(10)
-        .fill(null)
-        .map(() => Array(10).fill(null));
 
     constructor(){
+        this.ships = []
+        this.missedShots = []
+        this.board = this.createBoard()
 
     }
 
-    addShip(row, column, length, direction = 'h'){
-        // If length is too long, dont add ship
-        // Checks column if direction not 'h'
-        if(direction != 'h')
-            if(column + length > 10) return false
-        else
-            if(row + length > 10) return false
+    createBoard(){
+        const board = Array(10)
+            .fill(null)
+            .map(() => Array(10)
+            .fill(null)
+            .map(() => new tile()))
+        return board
+    }
+
+    addShipHorizontal(row, column, length){
+        // If length is too long, dont add ship, result in out of bounds ship
+        if(column + length > 10) return false
+
+        // Check ship would overlap another ship
+        for (let i = 0; i < length; i++)
+            if (this.board[row][column + i].ship !== null) 
+                return false;
 
         // Creates new ship
         const myShip = new ship(length)
-        this.#ships.push(myShip)
+        this.ships.push(myShip)
 
         // Add ship to board
         for (let i = 0; i < length; i++) {
-            if (direction != 'h') {
-                this.#board[row + i][column] = myShip
-            } else {
-                this.#board[row][column + i] = myShip
-            }
+            this.board[row][column + i].ship = myShip
+        }
+    }
+    
+
+    addShipVertical(row, column, length){
+        // If length is too long, dont add ship, result in out of bounds ship
+        if(row + length > 10) return false
+
+        // Check ship would overlap another ship
+        for (let i = 0; i < length; i++)
+            if (this.board[row + i][column].ship !== null) 
+                return false;
+
+        // Creates new ship
+        const myShip = new ship(length)
+        this.ships.push(myShip)
+
+        // Add ship to board
+        for (let i = 0; i < length; i++) {
+            this.board[row + i][column].ship = myShip
         }
     }
 
     receiveAttack(row, column){
+        // Get board tile
+        const boardTile = this.board[row][column]
+
+        // Get ship
+        const boardShip = boardTile.ship
+        
         // If spot has been hit already, don't hit again
-        if(this.#board[row][column] === 'x' || this.#board[row][column] === 'o'){
-            return
-        }
+        if(boardTile.isHit) return
 
-        // Get board cell
-        const cell = this.#board[row][column]
+        // If tile is ship, hit ship
+        if(boardShip) this.attackShip(row, column)
+            
+        // If tile not ship, add attack to missedShots
+        if(!boardShip) this.attackMiss(row, column)
 
-        // Hit if ship, miss if not
-        if(cell instanceof ship){
-            cell.hit()
-            this.#board[row][column] = 'o'
-        } else {
-            this.#board[row][column] = 'x'
-            this.#missedShots.push([row][column])
-        }
+        // Change tile isHit status to true
+        boardTile.isHit = true
     }
 
-    getMissedShots(){
-        return this.#missedShots
+    attackShip(row, column){
+        const ship = this.board[row][column].ship
+        ship.hit()
     }
 
-    wipedShips(){
-        this.#board.filter
-    }
-
-
-
-    getBoard(){
-        return this.#board
+    attackMiss(row, column){
+        this.missedShots.push([row, column])
     }
 
 }
