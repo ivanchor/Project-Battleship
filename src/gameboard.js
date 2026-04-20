@@ -87,6 +87,15 @@ class gameboard{
         this.missedShots.push([row, column])
     }
 
+    allShipsSunk(){
+        // Goes through ship list, if any are not sunk, return false
+        for(let i = 0; i<this.ships.length; i++){
+            if(!this.ships[i].isSunk())
+                return false
+        }
+        return true
+    }
+
 }
 
 export {gameboard}

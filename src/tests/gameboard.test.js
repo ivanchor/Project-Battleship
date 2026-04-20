@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import { gameboard } from "../gameboard";
 import { ship } from "../ship";
-import { tile } from "../tile";
 
 test('Create gameboard', () => {
     const game = new gameboard()
@@ -86,4 +85,46 @@ test('Miss ship', () => {
     game.receiveAttack(2,2)
 
     expect(game.missedShots).toContainEqual([1,1])
+})
+
+test('All ships sunk(True), only 1 ship', () => {
+    const game = new gameboard()
+    game.addShipHorizontal(0,0,2)
+    game.receiveAttack(0,0)
+    game.receiveAttack(0,1)
+
+    expect(game.allShipsSunk()).toBe(true)
+})
+
+test('All ships sunk(True), 2 ships', () => {
+    const game = new gameboard()
+    game.addShipHorizontal(0,0,2)
+    game.addShipHorizontal(1,0,2)
+    game.receiveAttack(0,0)
+    game.receiveAttack(0,1)
+
+    game.receiveAttack(1,0)
+    game.receiveAttack(1,1)
+
+    expect(game.allShipsSunk()).toBe(true)
+})
+
+test('All ships sunk(False), only 1 ship', () => {
+    const game = new gameboard()
+    game.addShipHorizontal(0,0,2)
+    game.receiveAttack(0,0)
+
+
+    expect(game.allShipsSunk()).toBe(false)
+})
+
+test('All ships sunk(False), 2 ship, 1 sunk', () => {
+    const game = new gameboard()
+    game.addShipHorizontal(0,0,2)
+    game.addShipHorizontal(1,0,2)
+    game.receiveAttack(0,0)
+    game.receiveAttack(0,1)
+
+
+    expect(game.allShipsSunk()).toBe(false)
 })
