@@ -96,6 +96,21 @@ class gameboard{
         return true
     }
 
+    clearBoard(){
+        for(let row = 0; row < this.board.length; row++){
+            for(let column; column < this.board[row].length; column++){
+                this.board[row][column].ship = null
+                this.board[row][column].isHit = false
+            }
+        }
+    }
+
+    reset(){
+        this.ships = []
+        this.missedShots = []
+        this.clearBoard()
+    }
+
 }
 
 export {gameboard}
