@@ -50,9 +50,10 @@ const ui = (() => {
     // Render game area for both players
     function renderGameScreen(playerOne, playerTwo){
         const battleScreen = document.createElement("div")
+        battleScreen.classList.add("game-screen")
 
-        const playerOneBattlefieldName = `${playerOne}'s Armada`
-        const playerTwoBattlefieldName = `${playerTwo}'s Armada`
+        const playerOneBattlefieldName = `${playerOne.name}'s Armada`
+        const playerTwoBattlefieldName = `${playerTwo.name}'s Armada`
 
         const playerOneBoard = this.renderBoard(playerOne)
         const playerTwoBoard = this.renderBoard(playerTwo)
@@ -95,8 +96,11 @@ const ui = (() => {
     function renderGameOverScreen(winner){
         const gameOverScreen = document.createElement("div")
         gameOverScreen.classList.add("gameOver-screen")
+
+        const winnerName = `${winner.name} wins`
+
         gameOverScreen.innerHTML = `
-            <div class="gameOverScreen-text">Game Over ${winner} wins</div>
+            <div class="gameOverScreen-text">Game Over ${winnerName}</div>
             <button class="gameOverScreen-button">Play Again</div>
         `
         return gameOverScreen
