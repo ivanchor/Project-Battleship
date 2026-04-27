@@ -98,7 +98,7 @@ class gameboard{
 
     clearBoard(){
         for(let row = 0; row < this.board.length; row++){
-            for(let column; column < this.board[row].length; column++){
+            for(let column = 0; column < this.board[row].length; column++){
                 this.board[row][column].ship = null
                 this.board[row][column].isHit = false
             }

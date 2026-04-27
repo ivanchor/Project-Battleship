@@ -128,3 +128,18 @@ test('All ships sunk(False), 2 ship, 1 sunk', () => {
 
     expect(game.allShipsSunk()).toBe(false)
 })
+
+test('Reset gameboard', () => {
+    const game = new gameboard()
+    game.addShipHorizontal(0,0,2)
+    game.receiveAttack(0,0)
+    game.receiveAttack(0,1)
+
+    game.clearBoard()
+
+    expect(game.board[0][0].ship).toBe(null)
+    expect(game.board[0][0].isHit).toBe(false)
+
+    expect(game.board[0][1].ship).toBe(null)
+    expect(game.board[0][1].isHit).toBe(false)
+})
