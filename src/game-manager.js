@@ -1,9 +1,11 @@
+import { player } from "./player"
+
 class gameManager{
     constructor(playerA, playerB){
-        this.playerA = playerA
-        this.playerB = playerB
+        this.playerA = new player(playerA)
+        this.playerB = new player(playerB)
         
-        this.currentTurn = playerA
+        this.currentTurn = this.playerA
         this.winner = null
         this.gameOver = false
     }
@@ -19,7 +21,7 @@ class gameManager{
         if(this.gameOver) return
 
         // Get opponent board
-        const opponent = this.getOpponent
+        const opponent = this.getOpponent()
         const board = opponent.gameboard
 
         // If hit already, do nothing
@@ -35,8 +37,8 @@ class gameManager{
             this.gameOver = true
         }
 
-        // If no winner, change turn
-        if(!this.gameOver) this.swtichTurn()
+        // Change turn
+        this.switchTurn()
 
         return {
             result,
@@ -48,7 +50,7 @@ class gameManager{
         }
     }
 
-    switchTUrn(){
+    switchTurn(){
         this.currentTurn =
             this.currentTurn === this.playerA
                 ? this.playerB
