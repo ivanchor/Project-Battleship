@@ -1,9 +1,5 @@
-/* td{
-    border: 2px solid black;
-    width: 10px;
-    height: 10px;
-} */
 
+/* Render Board */
 table{
     color: white;
 }
@@ -19,6 +15,22 @@ td {
   text-align: center;
 }
 
+/* Render Game Screen */
+.game-screen{
+    display: flex;
+    gap: 20px; 
+    user-select: none;
+}
+
+.battlefield-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1; 
+}
+
 body{
     background-color: black;
+    color: white;
 }
