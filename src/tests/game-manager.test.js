@@ -36,8 +36,8 @@ test('make move, miss', () => {
     game.makeMove(5,5)
 
 
-    expect(game.currentTurn).toBe(game.playerA)
-    expect(game.getOpponent()).toBe(game.playerB)
+    expect(game.currentTurn).toBe(game.playerB)
+    expect(game.getOpponent()).toBe(game.playerA)
     expect(game.playerB.gameboard.allShipsSunk()).toBe(false)
     expect(game.playerA.gameboard.allShipsSunk()).toBe(false)
     expect(game.winner).toBe(null)

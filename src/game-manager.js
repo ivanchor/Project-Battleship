@@ -26,13 +26,11 @@ class gameManager{
 
         // Get board tile
         const tile = board.board[row][column]
-        // If not ship, do nothing
-        if(tile.ship === null) return
         // If hit already, do nothing
         if(tile.isHit) return
 
         // Hit
-        const result = board.attackShip(row, column)
+        const result = board.receiveAttack(row, column)
 
         // Check if all ships sunk
         if(board.allShipsSunk()){
