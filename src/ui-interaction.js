@@ -1,10 +1,10 @@
 import { ui } from "./ui";
-import { player } from "./player";
 import { gameManager } from "./game-manager";
 
 // Values needed to run game
-    const playerA = new player("Human")
-    const playerB = new player("CPU")
+    const game = new gameManager("Human", "CPU")
+    const playerA = game.playerA
+    const playerB = game.playerB
 
 
 // Select '.battlefield-body' to change HTML
@@ -17,39 +17,73 @@ function startScreen(){
 
     const startButton = document.querySelector(".titleScreen-start-button")
     startButton.addEventListener("click", () => {
-        console.log("PRESSED BUTTON")
+        gameScreen()
     })
 }
 
 // Gaming screen
 function gameScreen(){
-    const screen = ui.renderGameScreen()
+    addPlayerShips()
+    addComputerShips()
+    const screen = ui.renderGameScreen(playerA, playerB)
+    body.replaceChildren(screen)
+
+    const cpuBoard = document.querySelector(".battlefield-two")
+    cpuBoard.addEventListener("click", (e) => cpuBoardClick(e))
+}
+
+// Clicking on cpu board to attack
+function cpuBoardClick(e){
+    if(game.currentTurn === playerB) return
+
+    const opBoard = game.getOpponent()
+    const cpuBoard = document.querySelector(".battlefield-two table")
+
+    // Get tile by clicking
+    const clickedTile = e.target.closest("td")
+
+    // If not tile, e.g labels, or grid lines, do nothing
+    if(!clickedTile) return
+
+    // Get row and column of tile
+    const row = clickedTile.dataset.x
+    const column = clickedTile.dataset.y
+
+    game.makeMove(row, column)
+
+    console.log(`Current Turn: ${game.currentTurn.name}`)
+    console.log(`Clicked on tile: ${row}, ${column}`)
+    console.log(`Tile hit status: ${opBoard.gameboard.board[row][column].isHit}`)
+
+
+    const newBoard = ui.renderBoard(playerB)
+    cpuBoard.replaceChildren(newBoard)
+
+}
+
+// Add ships to player board
+function addPlayerShips(){
+    game.playerA.gameboard.addShipHorizontal(0,0,2)
+    game.playerA.gameboard.addShipHorizontal(2,4,5)
+    game.playerA.gameboard.addShipHorizontal(9,4,3)
+    game.playerA.gameboard.addShipVertical(5,7,3)
+    game.playerA.gameboard.addShipVertical(4,3,4)
+
+    game.playerA.gameboard.receiveAttack(0,0)
+    game.playerA.gameboard.receiveAttack(1,0)
+
+}
+
+// Add ships to computer board
+function addComputerShips(){
+    game.playerB.gameboard.addShipHorizontal(0,3,2)
+    game.playerB.gameboard.addShipHorizontal(6,2,3)
+    game.playerB.gameboard.addShipHorizontal(8,1,5)
+    game.playerB.gameboard.addShipVertical(2,0,3)
+    game.playerB.gameboard.addShipVertical(3,8,4) 
 }
 
 function runGame(){
-    // const playerA = new player("Human")
-    // const playerB = new player("CPU")
-
-    // // Add ships to playerA, Human
-    // playerA.gameboard.addShipHorizontal(0,0,2)
-    // playerA.gameboard.addShipHorizontal(2,4,5)
-    // playerA.gameboard.addShipHorizontal(9,4,3)
-    // playerA.gameboard.addShipVertical(5,7,3)
-    // playerA.gameboard.addShipVertical(4,3,4)
-
-    // // Add ships to playerB, CPU
-
-
-    // const gameScreen = ui.renderGameScreen(playerA, playerB)
-    // const startScreen = ui.renderStartScreen()
-    // const gameOverScreen = ui.renderGameOverScreen(playerA)
-
-
-
-    // // const body = document.querySelector("body")
-    // body.append(gameScreen)
-    // body.append(startScreen)
-    // body.append(gameOverScreen)
     startScreen()
 }
 
