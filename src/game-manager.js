@@ -24,8 +24,11 @@ class gameManager{
         const opponent = this.getOpponent()
         const board = opponent.gameboard
 
-        // If hit already, do nothing
+        // Get board tile
         const tile = board.board[row][column]
+        // If not ship, do nothing
+        if(tile.ship === null) return
+        // If hit already, do nothing
         if(tile.isHit) return
 
         // Hit

@@ -12,7 +12,7 @@ test('Create gameboard', () => {
     expect(game.getOpponent()).toBe(game.playerB)
 })
 
-test('make move', () => {
+test('make move, hit', () => {
     const game = new gameManager("human", "computer")
     game.playerA.gameboard.addShipHorizontal(0,0,1)
     game.playerB.gameboard.addShipHorizontal(0,0,1)
@@ -25,6 +25,22 @@ test('make move', () => {
     expect(game.playerB.gameboard.allShipsSunk()).toBe(true)
     expect(game.playerA.gameboard.allShipsSunk()).toBe(false)
     expect(game.winner).toBe(game.playerA)
+    
+})
+
+test('make move, miss', () => {
+    const game = new gameManager("human", "computer")
+    game.playerA.gameboard.addShipHorizontal(0,0,1)
+    game.playerB.gameboard.addShipHorizontal(0,0,1)
+
+    game.makeMove(5,5)
+
+
+    expect(game.currentTurn).toBe(game.playerA)
+    expect(game.getOpponent()).toBe(game.playerB)
+    expect(game.playerB.gameboard.allShipsSunk()).toBe(false)
+    expect(game.playerA.gameboard.allShipsSunk()).toBe(false)
+    expect(game.winner).toBe(null)
     
 })
 
