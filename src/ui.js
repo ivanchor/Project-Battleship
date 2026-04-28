@@ -37,7 +37,16 @@ const ui = (() => {
                 tileHTML.dataset.x = boardRow
                 tileHTML.dataset.y = boardColumn
 
-                if(tile.ship !== null) tileHTML.textContent = "S"
+                if(tile.isHit) tileHTML.textContent = "X"
+
+                if(tile.ship !== null){
+                    tileHTML.textContent = "S"
+
+                    if(tile.isHit){
+                        tileHTML.textContent = "O"
+                    }  
+                } 
+
                 row.append(tileHTML)
             } 
             body.append(row)
