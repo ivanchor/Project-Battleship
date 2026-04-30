@@ -103,6 +103,12 @@ function cpuAttack(){
 function gameOverScreen(){
     const screen = ui.renderGameOverScreen(game.winner)
     body.replaceChildren(screen)
+
+    const restartButton = document.querySelector(".gameOverScreen-button")
+    restartButton.addEventListener('click', () => {
+        game.resetGame()
+        startScreen()
+    })
 }
 
 // Add ships to player board
