@@ -67,14 +67,20 @@ const ui = (() => {
         const playerOneBoard = this.renderBoard(playerOne)
         const playerTwoBoard = this.renderBoard(playerTwo)
 
+        const currentPlayer = `Current Turn: ${playerOne.name}`
+
         battleScreen.innerHTML = `
-            <div class="battlefield-container battlefield-container-one">
-                <div class="battlefield-name">${playerOneBattlefieldName}</div>
-                <div class="battlefield battlefield-one"></div>
-            </div>
-            <div class="battlefield-container battlefield-container-two">
-                <div class="battlefield-name enemy">${playerTwoBattlefieldName}</div>
-                <div class="battlefield battlefield-two"></div>
+            <div class="current-turn">${currentPlayer}</div>
+
+            <div class="battlefields">
+                <div class="battlefield-container battlefield-container-one">
+                    <div class="battlefield-name">${playerOneBattlefieldName}</div>
+                    <div class="battlefield battlefield-one"></div>
+                </div>
+                <div class="battlefield-container battlefield-container-two">
+                    <div class="battlefield-name enemy">${playerTwoBattlefieldName}</div>
+                    <div class="battlefield battlefield-two"></div>
+                </div>
             </div>
         `
 

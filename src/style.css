@@ -18,6 +18,8 @@ td {
 /* Render Game Screen */
 .game-screen{
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     gap: 20px; 
     user-select: none;
 }
@@ -33,4 +35,14 @@ td {
 body{
     background-color: black;
     color: white;
+}
+
+.current-turn{
+    display: flex;
+    justify-content: center;
+}
+
+.battlefields{
+    display: flex;
+    flex-direction: row;
 }

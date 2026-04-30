@@ -38,6 +38,8 @@ function cpuBoardClick(e){
 
     // Get HTML for cpu board
     const cpuBoard = document.querySelector(".battlefield-two table")
+    // Get HTML for current turn
+    const currentTurn = document.querySelector(".current-turn")
 
     // Get tile by clicking
     const clickedTile = e.target.closest("td")
@@ -56,6 +58,8 @@ function cpuBoardClick(e){
 
     // Not game over
     if(!move.gameOver){
+        const currentPlayer = `Current Turn: ${game.currentTurn.name}`
+        currentTurn.replaceChildren(currentPlayer)
         // Cpu makes move after player
         cpuAttack()
     }
