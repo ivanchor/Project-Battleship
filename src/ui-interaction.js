@@ -79,9 +79,16 @@ function cpuBoardClick(e){
 
 }
 
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 // Computer attack, after player move
-function cpuAttack(){
+async function cpuAttack(){
     const humanBoard = document.querySelector(".battlefield-one table")
+
+    const delay = Math.floor(Math.random() * 2000) +3000
+    await wait(delay)
 
     let move = null
 
@@ -97,6 +104,10 @@ function cpuAttack(){
         if(move.gameOver) gameOverScreen()
         //console.log(`CPU attacked: Row ${cpuRow}, Column ${cpuColumn}`)
     }
+    // Get HTML for current turn
+    const currentTurn = document.querySelector(".current-turn")
+    const currentPlayer = `Current Turn: ${game.currentTurn.name}`
+    currentTurn.replaceChildren(currentPlayer)
 
     const newBoard = ui.renderBoard(playerA)
     humanBoard.replaceChildren(newBoard)
