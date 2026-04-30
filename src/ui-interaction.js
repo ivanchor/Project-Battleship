@@ -36,7 +36,7 @@ function gameScreen(){
 function cpuBoardClick(e){
     if(game.currentTurn === playerB) return
 
-    const opBoard = game.getOpponent()
+    // Get HTML for cpu board
     const cpuBoard = document.querySelector(".battlefield-two table")
 
     // Get tile by clicking
@@ -49,16 +49,60 @@ function cpuBoardClick(e){
     const row = clickedTile.dataset.x
     const column = clickedTile.dataset.y
 
-    game.makeMove(row, column)
+    const move = game.makeMove(row, column)
+    
+    // If tile has been clicked, dont make move 
+    if(!move) return
 
-    console.log(`Current Turn: ${game.currentTurn.name}`)
-    console.log(`Clicked on tile: ${row}, ${column}`)
-    console.log(`Tile hit status: ${opBoard.gameboard.board[row][column].isHit}`)
+    // Not game over
+    if(!move.gameOver){
+        // Cpu makes move after player
+        cpuAttack()
+    }
+    else{
+        gameOverScreen()
+    }
 
+    // const opBoard = game.getOpponent()
+    // console.log(`Current Turn: ${game.currentTurn.name}`)
+    // console.log(`Clicked on tile: ${row}, ${column}`)
+    // console.log(`Tile hit status: ${opBoard.gameboard.board[row][column].isHit}`)
 
+    // Replace cpu board with new updated UI
     const newBoard = ui.renderBoard(playerB)
     cpuBoard.replaceChildren(newBoard)
 
+
+}
+
+// Computer attack, after player move
+function cpuAttack(){
+    const humanBoard = document.querySelector(".battlefield-one table")
+
+    let move = null
+
+    while (!move) {
+        const cpuRow = Math.floor(Math.random() * 10)
+        const cpuColumn = Math.floor(Math.random() * 10)
+
+        move = game.makeMove(cpuRow, cpuColumn)
+
+        // If already attacked, try again
+        if(!move) continue
+
+        if(move.gameOver) gameOverScreen()
+        //console.log(`CPU attacked: Row ${cpuRow}, Column ${cpuColumn}`)
+    }
+
+    const newBoard = ui.renderBoard(playerA)
+    humanBoard.replaceChildren(newBoard)
+
+}
+
+// Game Over Screen
+function gameOverScreen(){
+    const screen = ui.renderGameOverScreen(game.winner)
+    body.replaceChildren(screen)
 }
 
 // Add ships to player board
@@ -69,8 +113,8 @@ function addPlayerShips(){
     game.playerA.gameboard.addShipVertical(5,7,3)
     game.playerA.gameboard.addShipVertical(4,3,4)
 
-    game.playerA.gameboard.receiveAttack(0,0)
-    game.playerA.gameboard.receiveAttack(1,0)
+    // game.playerA.gameboard.receiveAttack(0,0)
+    // game.playerA.gameboard.receiveAttack(1,0)
 
 }
 
