@@ -87,7 +87,7 @@ function wait(ms) {
 async function cpuAttack(){
     const humanBoard = document.querySelector(".battlefield-one table")
 
-    const delay = Math.floor(Math.random() * 2000) +3000
+    const delay = Math.floor(Math.random() * 2000)
     await wait(delay)
 
     let move = null
