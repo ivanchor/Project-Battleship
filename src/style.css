@@ -15,6 +15,18 @@ td {
   text-align: center;
 }
 
+td.hit{
+    background-color: green;
+}
+
+td.miss{
+    background-color: rgba(255, 0, 0, 0.726);
+}
+
+td.ship{
+    background-color: blue;
+}
+
 /* Render Game Screen */
 .game-screen{
     display: flex;

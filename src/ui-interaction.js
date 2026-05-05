@@ -73,7 +73,7 @@ function cpuBoardClick(e){
     // console.log(`Tile hit status: ${opBoard.gameboard.board[row][column].isHit}`)
 
     // Replace cpu board with new updated UI
-    const newBoard = ui.renderBoard(playerB)
+    const newBoard = ui.renderBoard(playerB, true)
     cpuBoard.replaceChildren(newBoard)
 
 
@@ -109,7 +109,7 @@ async function cpuAttack(){
     const currentPlayer = `Current Turn: ${game.currentTurn.name}`
     currentTurn.replaceChildren(currentPlayer)
 
-    const newBoard = ui.renderBoard(playerA)
+    const newBoard = ui.renderBoard(playerA, false)
     humanBoard.replaceChildren(newBoard)
 
 }

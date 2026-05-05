@@ -1,7 +1,7 @@
 const ui = (() => {
 
     // Render gameboards for player
-    function renderBoard(player){
+    function renderBoard(player, hiddenShips = false){
         let gameboard = player.gameboard
         // Table to show gameboard
         const table = document.createElement("table")
@@ -37,15 +37,34 @@ const ui = (() => {
                 tileHTML.dataset.x = boardRow
                 tileHTML.dataset.y = boardColumn
 
-                if(tile.isHit) tileHTML.textContent = "X"
+                // if(tile.isHit) tileHTML.textContent = "X"
 
-                if(tile.ship !== null){
-                    tileHTML.textContent = "S"
+                // if(tile.ship !== null){
+                //     tileHTML.textContent = "S"
 
-                    if(tile.isHit){
-                        tileHTML.textContent = "O"
-                    }  
-                } 
+                //     if(tile.isHit){
+                //         tileHTML.textContent = "O"
+                //     }  
+                // } 
+
+                // Use mapping to determine tile status
+                const key = `${tile.isHit}-${tile.ship !== null}`
+
+                const map = {
+                    "true-true":  { text: "O", className: "hit" },
+                    "true-false": { text: "X", className: "miss" },
+                    "false-true": { 
+                        text: hiddenShips ? "": "S", 
+                        className: hiddenShips ? "empty": "ship" },
+                    "false-false":{ text: "",  className: "empty" }
+                }
+
+                const result = map[key]
+
+                tileHTML.textContent = result.text
+                tileHTML.className = result.className
+
+
 
                 row.append(tileHTML)
             } 
@@ -64,8 +83,8 @@ const ui = (() => {
         const playerOneBattlefieldName = `${playerOne.name}'s Armada`
         const playerTwoBattlefieldName = `${playerTwo.name}'s Armada`
 
-        const playerOneBoard = this.renderBoard(playerOne)
-        const playerTwoBoard = this.renderBoard(playerTwo)
+        const playerOneBoard = this.renderBoard(playerOne, false)
+        const playerTwoBoard = this.renderBoard(playerTwo, true)
 
         const currentPlayer = `Current Turn: ${playerOne.name}`
 
