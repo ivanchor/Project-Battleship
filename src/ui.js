@@ -119,8 +119,11 @@ const ui = (() => {
         const titleScreen = document.createElement("div")
         titleScreen.classList.add("title-screen")
         titleScreen.innerHTML = `
-            <div class="titleScreen-text">Battlefield</div>
-            <button class="titleScreen-start-button">Start Game</div>
+            <div class="titleScreen-text">
+                <h1>Battleship</h1>
+                <h1>Battleship</h1>
+            </div>
+            <button class="titleScreen-start-button">Start Game</button>
         `
         
         return titleScreen

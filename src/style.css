@@ -47,6 +47,7 @@ td.ship{
 body{
     background-color: black;
     color: white;
+    margin: 0;
 }
 
 .current-turn{
@@ -58,3 +59,86 @@ body{
     display: flex;
     flex-direction: row;
 }
+
+/* Render Start Game Screen*/
+.title-screen{
+    --title-screen-color: rgb(23, 168, 83);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; 
+}
+
+/* Title css */
+.titleScreen-text {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.titleScreen-text h1 {
+	font-size: 8vw;
+	font-weight: 900;
+	background-color: var(--title-screen-color);
+	color: #fff;
+	display: block;
+	padding: .5em;
+}
+
+.titleScreen-text h1:nth-child(2) {
+	position: absolute;
+	background-color: #fff;
+	color: var(--title-screen-color);
+	clip-path: inset(-1% -1% 50% -1%); 
+}
+/* Title css */
+
+/* Button css */ 
+.titleScreen-start-button {
+  cursor: pointer;
+
+  padding: 10px 24px;
+  font-size: 18px;
+  color: var(--title-screen-color);
+  border: 2px solid var(--title-screen-color);
+  border-radius: 34px;
+  background-color: transparent;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+  overflow: hidden;
+}
+
+.titleScreen-start-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 50px;
+  height: 50px;
+  border-radius: inherit;
+  scale: 0;
+  z-index: -1;
+  background-color: var(--title-screen-color);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.titleScreen-start-button:hover::before {
+  scale: 3;
+}
+
+.titleScreen-start-button:hover {
+  color: #212121;
+  scale: 1.1;
+  box-shadow: 0 0px 20px rgba(193, 163, 98,0.4);
+}
+
+.titleScreen-start-button:active {
+  scale: 1;
+}
+/* Button css */
+
+
+
+/* Render Game Over Screen */
