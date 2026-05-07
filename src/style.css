@@ -22,6 +22,16 @@ td {
   text-align: center;
 }
 
+/* Apply background effect only if not hit/miss/ship */
+.battlefield-two td:not(.hit):not(.miss):not(.ship):hover {
+  background-color: rgb(45, 62, 158);
+
+}
+/* Hover scale effect on battlefield two */
+.battlefield-two td:hover{
+  transform: scale(1.15);
+}
+
 td.hit{
     background-color: green;
 }
