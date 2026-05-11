@@ -137,8 +137,12 @@ const ui = (() => {
         const winnerName = `${winner.name} wins`
 
         gameOverScreen.innerHTML = `
-            <div class="gameOverScreen-text">Game Over ${winnerName}</div>
+            <div class="gameOverScreen-container">
+                <h1 class="gameOverScreen-text" data-text="GAME OVER ${winnerName}">GAME OVER ${winnerName}</h1>
+                
+            </div>
             <button class="gameOverScreen-button">Play Again</button>
+            <div class="rain"></div>
         `
         return gameOverScreen
     }
