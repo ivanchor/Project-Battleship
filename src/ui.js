@@ -101,6 +101,7 @@ const ui = (() => {
                     <div class="battlefield battlefield-two"></div>
                 </div>
             </div>
+            <div class="rain"></div>
         `
 
         battleScreen
@@ -124,7 +125,8 @@ const ui = (() => {
                 <h1>Battleship</h1>
             </div>
             <button class="titleScreen-start-button">Start Game</button>
-        `
+            <div class="rain"></div>
+            `
         
         return titleScreen
     }
