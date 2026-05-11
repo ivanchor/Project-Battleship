@@ -231,7 +231,7 @@ td.ship{
   );
   animation: rain 10s linear infinite;
   z-index: 1; /* Place it behind the text */
-
+  pointer-events: none
 }
 
 /* Animation for the rain effect */
